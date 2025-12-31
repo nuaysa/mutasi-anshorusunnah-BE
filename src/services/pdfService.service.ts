@@ -242,12 +242,11 @@ export class PdfService {
     const leftMargin = 50;
     const rightMargin = 50;
     const pageWidth = PDF_CONFIG.PAGE.WIDTH;
-    const printableWidth = pageWidth - leftMargin - rightMargin; // Lebar area konten
+    const printableWidth = pageWidth - leftMargin - rightMargin; 
 
     for (let i = 0; i < pages.count; i++) {
       doc.switchToPage(i);
       
-      // 1. Garis horizontal pembatas footer
       doc.moveTo(leftMargin, 790)
          .lineTo(pageWidth - rightMargin, 790)
          .strokeColor(PDF_CONFIG.COLORS.GRAY[200])
@@ -256,8 +255,6 @@ export class PdfService {
 
       doc.fontSize(PDF_CONFIG.FONTS.CAPTION).fillColor(PDF_CONFIG.COLORS.GRAY[500]);
 
-      // 2. Teks Kiri: Nomor Halaman
-      // Kita tentukan lebarnya agar tidak bertabrakan dengan teks kanan
       doc.text(
         `Halaman ${i + 1} dari ${pages.count}`, 
         leftMargin, 
@@ -268,9 +265,6 @@ export class PdfService {
         }
       );
 
-      // 3. Teks Kanan: Waktu Cetak
-      // Kuncinya adalah memberikan 'width' yang sama dengan lebar area cetak
-      // dan 'align: right' akan mendorong teks ke batas paling kanan (margin 50)
       doc.text(
         `Dicetak pada: ${new Date().toLocaleString("id-ID")}`, 
         leftMargin, 
