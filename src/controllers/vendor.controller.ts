@@ -3,6 +3,7 @@ import { createVendorService } from "../services/vendors/createVendor.service";
 import { getAllVendorsService } from "../services/vendors/getAllVendors.service";
 import { editVendorService } from "../services/vendors/editVendor.service";
 import { deleteVendorService } from "../services/vendors/deleteVendor.service";
+import { errorResponse } from "@/utils/response";
 
 export class VendorController {
   async getVendorController(req: Request, res: Response) {
@@ -10,7 +11,11 @@ export class VendorController {
       const VendorData = await getAllVendorsService();
       res.status(200).send(VendorData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -24,7 +29,11 @@ export class VendorController {
 
       res.status(200).send(VendorData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -36,7 +45,11 @@ export class VendorController {
       });
       res.status(200).send(VendorData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -51,7 +64,11 @@ export class VendorController {
       });
       res.status(200).send(VendorData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 }

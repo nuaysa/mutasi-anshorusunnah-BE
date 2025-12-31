@@ -5,15 +5,19 @@ import { getTransactionByIdService } from "../services/transactions/getTransacti
 import { createTransactionService } from "../services/transactions/createTransaction.service";
 import { getSantriDebtsService } from "../services/transactions/getDebts.service";
 import { serializeBigInt } from "../utils/helper";
+import { errorResponse } from "@/utils/response";
 
 export class TransactionController {
   async getAllTransactionsController(req: Request, res: Response) {
     try {
-      
       const TransactionData = await getAllTransactionsService(req.query);
       res.status(200).send(TransactionData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -27,7 +31,11 @@ export class TransactionController {
 
       res.status(200).send(Transaction);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
   async getDebtsByIdController(req: Request, res: Response) {
@@ -42,7 +50,11 @@ export class TransactionController {
 
       res.status(200).send(Transaction);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -61,7 +73,11 @@ export class TransactionController {
       });
       res.status(200).send(TransactionData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -91,10 +107,14 @@ export class TransactionController {
         amount: BigInt(amount),
       });
 
-res.json(serializeBigInt(TransactionData))
+      res.json(serializeBigInt(TransactionData));
       res.status(200).send(TransactionData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 }

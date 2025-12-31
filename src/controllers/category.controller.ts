@@ -3,6 +3,7 @@ import { deleteCategoryService } from "../services/categories/deleteCategory.ser
 import { createCategoryService } from "../services/categories/createCategory.service";
 import { getAllCategoryService } from "../services/categories/getAllCategory.service";
 import { editCategoryService } from "../services/categories/editCategory.service";
+import { errorResponse } from "@/utils/response";
 
 export class CategoryController {
   async getCategoryController(req: Request, res: Response) {
@@ -10,7 +11,11 @@ export class CategoryController {
       const CategoryData = await getAllCategoryService();
       res.status(200).send(CategoryData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -24,7 +29,11 @@ export class CategoryController {
 
       res.status(200).send(CategoryData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -38,7 +47,11 @@ export class CategoryController {
       });
       res.status(200).send(CategoryData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -53,7 +66,11 @@ export class CategoryController {
       });
       res.status(200).send(CategoryData);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 }

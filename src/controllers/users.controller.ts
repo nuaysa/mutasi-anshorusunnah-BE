@@ -3,6 +3,7 @@ import { editUserService } from "../services/users/editUser.service";
 import { getAllUserService } from "../services/users/getAllUser.service";
 import { Request, Response } from "express";
 import { deleteuserService } from "../services/users/deleteUser.service";
+import { errorResponse } from "@/utils/response";
 
 export class UserController {
   async getUserByIdController(req: Request, res: Response) {
@@ -15,7 +16,11 @@ export class UserController {
 
       res.status(200).send(User);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -25,13 +30,17 @@ export class UserController {
 
       res.status(200).send(User);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
   async editUserController(req: Request, res: Response) {
     try {
-       const { id } = req.params;
+      const { id } = req.params;
       const { nama, role, password } = req.body;
 
       const User = await editUserService({
@@ -43,7 +52,11 @@ export class UserController {
 
       res.status(200).send(User);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 
@@ -57,7 +70,11 @@ export class UserController {
 
       res.status(200).send(User);
     } catch (err: any) {
-      res.status(400).send({ message: err.message });
+      return errorResponse(res, {
+        error: "Application Error",
+        message: err.message,
+        status: 400,
+      });
     }
   }
 }

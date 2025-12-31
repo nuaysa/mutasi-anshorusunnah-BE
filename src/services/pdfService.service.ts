@@ -237,45 +237,35 @@ export class PdfService {
   }
 
  private static drawDocumentFooter(doc: PDFKit.PDFDocument): void {
-    const pages = doc.bufferedPageRange();
-    const footerY = 800; // Koordinat Y yang sama agar sejajar
-    const leftMargin = 50;
-    const rightMargin = 50;
-    const pageWidth = PDF_CONFIG.PAGE.WIDTH;
-    const printableWidth = pageWidth - leftMargin - rightMargin; 
+  const pages = doc.bufferedPageRange();
+  const footerY = PDF_CONFIG.PAGE.HEIGHT - 45;
+  const leftMargin = 50;
+  const rightMargin = 50;
+  const pageWidth = PDF_CONFIG.PAGE.WIDTH;
+  const printableWidth = pageWidth - leftMargin - rightMargin;
 
-    for (let i = 0; i < pages.count; i++) {
-      doc.switchToPage(i);
-      
-      doc.moveTo(leftMargin, 790)
-         .lineTo(pageWidth - rightMargin, 790)
-         .strokeColor(PDF_CONFIG.COLORS.GRAY[200])
-         .lineWidth(1)
-         .stroke();
+  for (let i = 0; i < pages.count; i++) {
+    doc.switchToPage(i);
 
-      doc.fontSize(PDF_CONFIG.FONTS.CAPTION).fillColor(PDF_CONFIG.COLORS.GRAY[500]);
+    doc
+      .moveTo(leftMargin, footerY - 10)
+      .lineTo(pageWidth - rightMargin, footerY - 10)
+      .strokeColor(PDF_CONFIG.COLORS.GRAY[200])
+      .lineWidth(1)
+      .stroke();
 
-      doc.text(
-        `Halaman ${i + 1} dari ${pages.count}`, 
-        leftMargin, 
-        footerY, 
-        { 
-          width: printableWidth, 
-          align: "left" 
-        }
+    doc
+      .fontSize(PDF_CONFIG.FONTS.CAPTION)
+      .fillColor(PDF_CONFIG.COLORS.GRAY[500])
+      .text(
+        `Halaman ${i + 1} dari ${pages.count}`,
+        leftMargin,
+        footerY,
+        { width: printableWidth, align: "left" }
       );
-
-      doc.text(
-        `Dicetak pada: ${new Date().toLocaleString("id-ID")}`, 
-        leftMargin, 
-        footerY, 
-        { 
-          width: printableWidth, 
-          align: "right" 
-        }
-      );
-    }
   }
+}
+
 
   private static formatIDR(val: number) {
     return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(val);
