@@ -6,7 +6,7 @@
 
 generator client {
   provider   = "prisma-client-js"
-  output     = "./generated/client"
+  output     = "../src/generated/prisma/client"
   engineType = "client"
 }
 
@@ -75,13 +75,13 @@ model Vendor {
 }
 
 model Transaction {
-  id          String   @id @default(uuid())
+  id String @id @default(uuid())
 
   santriId String?
   santri   Santri? @relation(fields: [santriId], references: [id])
 
   debtId String?
-  debt   Debt? @relation(fields: [debtId], references: [id])
+  debt   Debt?   @relation(fields: [debtId], references: [id])
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
@@ -89,7 +89,7 @@ model Transaction {
   vendorId String?
   vendor   Vendor? @relation(fields: [vendorId], references: [id])
 
-  type    TransactionType   
+  type    TransactionType
   purpose TransactionPurpose @default(other)
 
   amount      BigInt
