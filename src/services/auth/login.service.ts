@@ -9,7 +9,7 @@ const loginService = async (req: Request, res: Response): Promise<void> => {
 
     // Validasi input
     if (!req.body || !req.body.data || !req.body.password) {
-      res.status(400).json({ message: "Email dan Password wajib diisi" });
+      res.status(400).json({ message: "Email atau Nama dan Password wajib diisi" });
       return;
     }
   
@@ -34,7 +34,7 @@ const loginService = async (req: Request, res: Response): Promise<void> => {
     // Validasi password
     const isValidPass = await bcrypt.compare(password, user.password);
     if (!isValidPass) {
-      throw new Error("Password Salah!");
+      throw new Error("Password, email atau nama Salah!");
     }
 
     // Jika akun belum diverifikasi
