@@ -3,7 +3,7 @@ import { createVendorService } from "../services/vendors/createVendor.service";
 import { getAllVendorsService } from "../services/vendors/getAllVendors.service";
 import { editVendorService } from "../services/vendors/editVendor.service";
 import { deleteVendorService } from "../services/vendors/deleteVendor.service";
-import { errorResponse } from "@/utils/response";
+import { errorResponse } from "../utils/response";
 
 export class VendorController {
   async getVendorController(req: Request, res: Response) {

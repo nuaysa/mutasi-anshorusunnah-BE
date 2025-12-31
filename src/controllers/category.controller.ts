@@ -3,7 +3,7 @@ import { deleteCategoryService } from "../services/categories/deleteCategory.ser
 import { createCategoryService } from "../services/categories/createCategory.service";
 import { getAllCategoryService } from "../services/categories/getAllCategory.service";
 import { editCategoryService } from "../services/categories/editCategory.service";
-import { errorResponse } from "@/utils/response";
+import { errorResponse } from "../utils/response";
 
 export class CategoryController {
   async getCategoryController(req: Request, res: Response) {

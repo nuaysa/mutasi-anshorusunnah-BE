@@ -3,7 +3,7 @@ import { getSantriByIdService } from "../services/students/getStudent.service";
 import { getAllSantriService } from "../services/students/getAllStudents.service";
 import { editSantriService } from "../services/students/editStudent.service";
 import { createSantriService } from "../services/students/createStudent.service";
-import { errorResponse } from "@/utils/response";
+import { errorResponse } from "../utils/response";
 
 export class StudentController {
   async createStudentController(req: Request, res: Response) {

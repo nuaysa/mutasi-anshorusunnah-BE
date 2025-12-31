@@ -16,7 +16,7 @@ export const editSantriService = async (data: EditSantriServiceProps) => {
     if (name !== undefined) updateData.name = name;
     if (generation !== undefined) updateData.generation = generation;
     if (status !== undefined) updateData.status = status;
-    if (grade !== undefined) updateData.class = grade;
+    if (grade !== undefined) updateData.grade = grade;
 
     const Santri = await prisma.santri.update({
       where: { id },

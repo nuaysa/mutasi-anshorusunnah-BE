@@ -5,7 +5,7 @@ import { getTransactionByIdService } from "../services/transactions/getTransacti
 import { createTransactionService } from "../services/transactions/createTransaction.service";
 import { getSantriDebtsService } from "../services/transactions/getDebts.service";
 import { serializeBigInt } from "../utils/helper";
-import { errorResponse } from "@/utils/response";
+import { errorResponse } from "../utils/response";
 
 export class TransactionController {
   async getAllTransactionsController(req: Request, res: Response) {

@@ -3,7 +3,7 @@ import { editUserService } from "../services/users/editUser.service";
 import { getAllUserService } from "../services/users/getAllUser.service";
 import { Request, Response } from "express";
 import { deleteuserService } from "../services/users/deleteUser.service";
-import { errorResponse } from "@/utils/response";
+import { errorResponse } from "../utils/response";
 
 export class UserController {
   async getUserByIdController(req: Request, res: Response) {
