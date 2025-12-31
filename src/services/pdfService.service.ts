@@ -232,13 +232,15 @@ export class PdfService {
       doc.fillColor(isIncome ? PDF_CONFIG.COLORS.SUCCESS : PDF_CONFIG.COLORS.DANGER).text(isIncome ? "MASUK" : "KELUAR", startX + 330, currentY);
 
       doc.fillColor("black").text(this.formatIDR(t.amount), startX + 400, currentY, { width: 85, align: "right" });
-      currentY += showName ? 30 : 22; // Baris lebih tinggi jika ada nama santri
+      currentY += showName ? 30 : 22; 
     });
   }
 
  private static drawDocumentFooter(doc: PDFKit.PDFDocument): void {
   const pages = doc.bufferedPageRange();
-  const footerY = PDF_CONFIG.PAGE.HEIGHT - 45;
+   const footerY = PDF_CONFIG.PAGE.HEIGHT - 60; 
+    const lineOffset = 6;
+  
   const leftMargin = 50;
   const rightMargin = 50;
   const pageWidth = PDF_CONFIG.PAGE.WIDTH;
@@ -248,8 +250,8 @@ export class PdfService {
     doc.switchToPage(i);
 
     doc
-      .moveTo(leftMargin, footerY - 10)
-      .lineTo(pageWidth - rightMargin, footerY - 10)
+      .moveTo(leftMargin, footerY - lineOffset)
+      .lineTo(pageWidth - rightMargin, footerY - lineOffset)
       .strokeColor(PDF_CONFIG.COLORS.GRAY[200])
       .lineWidth(1)
       .stroke();
@@ -261,7 +263,23 @@ export class PdfService {
         `Halaman ${i + 1} dari ${pages.count}`,
         leftMargin,
         footerY,
-        { width: printableWidth, align: "left" }
+        {
+          width: printableWidth,
+          align: "left",
+        }
+      );
+
+    doc
+      .fontSize(PDF_CONFIG.FONTS.CAPTION)
+      .fillColor(PDF_CONFIG.COLORS.GRAY[500])
+      .text(
+        `Dicetak pada ${this.formatDate(new Date)}`,
+        leftMargin,
+        footerY,
+        {
+          width: printableWidth,
+          align: "right",
+        }
       );
   }
 }

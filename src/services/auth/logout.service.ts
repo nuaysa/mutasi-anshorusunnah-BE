@@ -14,7 +14,7 @@ const logoutService = async (req: Request, res: Response) => {
     ? authHeader.slice(7)
     : authHeader;
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+  const decoded = jwt.verify(token, process.env.JWT_KEY!) as { id: string };
 
   const user = await prisma.user.findUnique({
     where: { id: decoded.id },
