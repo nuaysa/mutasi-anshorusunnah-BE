@@ -1,14 +1,25 @@
 import { Santri } from "../../generated/prisma/client";
 import prisma from "../../prisma";
 import { buildQuery, serializeBigInt } from "../../utils/helper";
-
 export const getAllSantriService = async (query: any) => {
   try {
-    const q = buildQuery<Santri>(query, {
+    const processedQuery = { ...query };
+    if (processedQuery.generation) {
+      const genNumber = Number(processedQuery.generation);
+      if (!isNaN(genNumber)) {
+        processedQuery.generation = genNumber;
+      } else {
+        delete processedQuery.generation; 
+      }
+    }
+
+    const q = buildQuery<Santri>(processedQuery, {
       searchable: ["name"],
-      filterable: ["status", "generation"],
+      filterable: ["status", "generation", "class"],
       defaultSize: 10,
     });
+
+    console.log('Generated where clause:', JSON.stringify(q.where, null, 2));
 
     const [data, total] = await Promise.all([
       prisma.santri.findMany({
@@ -23,7 +34,7 @@ export const getAllSantriService = async (query: any) => {
       prisma.santri.count({ where: q.where }),
     ]);
 
-   const serializedData = data.map((santri) => {
+    const serializedData = data.map((santri) => {
       const totalDebt = santri.debt.reduce(
         (sum, d) => sum + Number(d.remainingAmount),
         0
