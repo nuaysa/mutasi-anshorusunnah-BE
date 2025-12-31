@@ -37,3 +37,21 @@ export function errorResponse(
     data,
   });
 }
+
+export class AppError extends Error {
+  status: number;
+  errorCode?: string;
+  data?: object | object[];
+
+  constructor(
+    message: string,
+    status = 500,
+    errorCode?: string,
+    data?: object | object[]
+  ) {
+    super(message);
+    this.status = status;
+    this.errorCode = errorCode;
+    this.data = data;
+  }
+}
