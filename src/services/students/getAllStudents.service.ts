@@ -1,4 +1,5 @@
-import { Santri } from "../../generated/prisma/client";
+
+import { Santri } from "prisma/generated/client";
 import prisma from "../../prisma";
 import { buildQuery, serializeBigInt } from "../../utils/helper";
 export const getAllSantriService = async (query: any) => {
@@ -9,7 +10,7 @@ export const getAllSantriService = async (query: any) => {
       if (!isNaN(genNumber)) {
         processedQuery.generation = genNumber;
       } else {
-        delete processedQuery.generation; 
+        delete processedQuery.generation;
       }
     }
 
@@ -19,7 +20,7 @@ export const getAllSantriService = async (query: any) => {
       defaultSize: 10,
     });
 
-    console.log('Generated where clause:', JSON.stringify(q.where, null, 2));
+    console.log("Generated where clause:", JSON.stringify(q.where, null, 2));
 
     const [data, total] = await Promise.all([
       prisma.santri.findMany({
@@ -35,10 +36,7 @@ export const getAllSantriService = async (query: any) => {
     ]);
 
     const serializedData = data.map((santri) => {
-      const totalDebt = santri.debt.reduce(
-        (sum, d) => sum + Number(d.remainingAmount),
-        0
-      );
+      const totalDebt = santri.debt.reduce((sum, d) => sum + Number(d.remainingAmount), 0);
 
       return {
         ...santri,
@@ -63,8 +61,6 @@ export const getAllSantriService = async (query: any) => {
     };
   } catch (err) {
     console.error("Error in getAllSantriService:", err);
-    throw err instanceof Error
-      ? err
-      : new Error("Gagal Mendapatkan Data Santri");
+    throw err instanceof Error ? err : new Error("Gagal Mendapatkan Data Santri");
   }
 };

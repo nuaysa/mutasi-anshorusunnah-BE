@@ -6,7 +6,7 @@
 
 generator client {
   provider   = "prisma-client-js"
-  output     = "../src/generated/prisma/client"
+  output     = "../prisma/generated/client"
   engineType = "client"
 }
 
@@ -21,7 +21,7 @@ model User {
   password     String
   role         UserRole @default(user)
   createdAt    DateTime @default(now())
-  isTokenValid Boolean  @default(true)
+  tokenVersion Int      @default(0)
 }
 
 model Santri {

@@ -1,4 +1,5 @@
-import { Transaction } from "../../generated/prisma/client";
+
+import { Transaction } from "prisma/generated/client";
 import prisma from "../../prisma";
 import { buildQuery, serializeBigInt } from "../../utils/helper";
 
@@ -11,16 +12,16 @@ export const getAllTransactionsService = async (query: any) => {
     });
 
     if (query.date) {
-   const start = new Date(query.date);
-start.setHours(0, 0, 0, 0);
+      const start = new Date(query.date);
+      start.setHours(0, 0, 0, 0);
 
-const end = new Date(query.date);
-end.setHours(23, 59, 59, 999);
+      const end = new Date(query.date);
+      end.setHours(23, 59, 59, 999);
 
-q.where.date = {
-  gte: start,
-  lte: end,
-};
+      q.where.date = {
+        gte: start,
+        lte: end,
+      };
     }
     const [data, total] = await Promise.all([
       prisma.transaction.findMany({

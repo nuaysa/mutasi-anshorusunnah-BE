@@ -13,9 +13,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "**/*.ts"    
-  ],
+  "include": ["src/**/*", "**/*.ts", "prisma/generated"],
   "exclude": ["node_modules"]
 }

@@ -1,14 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { findUser} from "../../libs/register.service";
+import { findUser } from "../../libs/register.service";
 import prisma from "../../prisma";
 import { sign } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-export const registerService = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+export const registerService = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { name, email, password, role } = req.body;
 
@@ -31,24 +27,19 @@ export const registerService = async (
         name,
         email,
         password: hashedPassword,
-        isTokenValid: false
       },
     });
 
     const payload = { id: user.id };
     const token = sign(payload, process.env.JWT_KEY!, { expiresIn: "1d" });
 
-
     res.status(201).send({
-      message:
-        "user Berhasil Dibuat!",
+      message: "user Berhasil Dibuat!",
       user,
-      token : token
+      token: token,
     });
-  } catch (err : any) {
+  } catch (err: any) {
     console.error("Error during registration:", err);
-    res
-      .status(500)
-      .send({ message: "An error occurred during registration", error: err.message });
+    res.status(500).send({ message: "An error occurred during registration", error: err.message });
   }
 };

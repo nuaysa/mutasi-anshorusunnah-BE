@@ -127,7 +127,7 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   createdAt: 'createdAt',
-  isTokenValid: 'isTokenValid'
+  tokenVersion: 'tokenVersion'
 };
 
 exports.Prisma.SantriScalarFieldEnum = {

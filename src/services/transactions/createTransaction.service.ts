@@ -45,6 +45,12 @@ export const createTransactionService = async (input: CreateTransactionInput) =>
       if (!santri) throw new Error("Santri tidak ditemukan");
     }
 
+    if (type === "expense") {
+      if (!!santriId === !!vendorId) {
+        throw new Error("Expense harus pilih santri ATAU vendor");
+      }
+    }
+    
     if (purpose === "debt_payment") {
       if (!debtId) throw new Error("debtId wajib untuk pembayaran hutang");
 
