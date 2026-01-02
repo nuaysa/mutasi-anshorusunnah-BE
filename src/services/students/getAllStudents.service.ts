@@ -15,7 +15,7 @@ export const getAllSantriService = async (query: any) => {
 
     const q = buildQuery<Santri>(processedQuery, {
       searchable: ["name"],
-      filterable: ["status", "generation", "class"],
+      filterable: ["status", "generation", "grade"],
       defaultSize: 10,
     });
 
